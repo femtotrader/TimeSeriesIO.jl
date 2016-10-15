@@ -1,4 +1,6 @@
 using TimeSeriesReader
+#using TimeSeriesReader: basepath
+
 using Base.Test
 
 using DataFrames
@@ -27,7 +29,7 @@ ta = to_TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
 @test Array(df[[:Open, :High, :Low, :Close]]) == ta.values
 
 
-filename = joinpath("test", "ford_2012.csv")
+filename = joinpath(basepath(), "ford_2012.csv")
 df = readtable(filename)
 df[:Date] = Date(df[:Date])
 ta = to_TimeArray(df, colnames=[:Open, :High, :Low, :Close])
@@ -36,5 +38,5 @@ ta = to_TimeArray(df, colnames=[:Open, :High, :Low, :Close])
 
 # Test convert TimeArray to DataFrame
 using TimeSeries
-filename = joinpath("src", "ford_2012.csv")
+filename = joinpath(basepath(), "ford_2012.csv")
 ohlcv = readtimearray(filename)
