@@ -8,4 +8,6 @@
 
 [![codecov.io](http://codecov.io/github/femtotrader/TimeSeriesReader.jl/coverage.svg?branch=master)](http://codecov.io/github/femtotrader/TimeSeriesReader.jl?branch=master)
 
-Convert DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl)) to TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl))
+- Convert DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl)) to TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl))
+
+- Convert TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl)) tp DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl))

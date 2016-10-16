@@ -39,4 +39,8 @@ ta = to_TimeArray(df, colnames=[:Open, :High, :Low, :Close])
 # Test convert TimeArray to DataFrame
 using TimeSeries
 filename = joinpath(basepath(), "ford_2012.csv")
-ohlcv = readtimearray(filename)
+ta2 = readtimearray(filename)
+ta2 = ta2["Open", "High", "Low", "Close"]
+df2 = to_DataFrame(ta2)
+@test names(df2) == [:Date, :Open, :High, :Low, :Close]
+println(df2)

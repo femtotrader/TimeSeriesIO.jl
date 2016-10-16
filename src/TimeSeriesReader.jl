@@ -1,7 +1,7 @@
 module TimeSeriesReader
 
 # package code goes here
-export to_TimeArray, basepath
+export to_TimeArray, to_DataFrame, basepath
 
 using DataFrames
 using TimeSeries
@@ -17,6 +17,14 @@ function to_TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
     a_values = Array(df[colnames])
     ta = TimeArray(a_timestamp, a_values, colnames_str)
     ta
+end
+
+function to_DataFrame(ta::TimeArray)
+    df = DataFrame(hcat(ta.timestamp, ta.values))
+    colnames = [Symbol(s) for s in ta.colnames]
+    colnames = vcat(:Date, colnames)
+    names!(df, colnames)
+    df
 end
 
 end # module
