@@ -1,13 +1,15 @@
 module TimeSeriesReader
 
 # package code goes here
-export to_TimeArray, to_DataFrame, basepath
+export TimeArray, DataFrame, basepath
 
 using DataFrames
 using TimeSeries
 include("path.jl")
 
-function to_TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
+import TimeSeries.TimeArray
+
+function TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
     if length(colnames) == 0
         colnames = names(df)
         colnames = filter(s->s!=timestamp, colnames)
@@ -19,7 +21,7 @@ function to_TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
     ta
 end
 
-function to_DataFrame(ta::TimeArray)
+function DataFrame(ta::TimeArray)
     df = DataFrame(hcat(ta.timestamp, ta.values))
     colnames = [Symbol(s) for s in ta.colnames]
     colnames = vcat(:Date, colnames)

@@ -20,11 +20,11 @@ df[:Date] = Date(df[:Date])
 a_OHLC = ["Open", "High", "Low", "Close"]
 
 # Test convert DataFrame to TimeArray
-ta = to_TimeArray(df, colnames=[:Open, :High, :Low, :Close])
+ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close])
 @test ta.colnames == a_OHLC
 @test Array(df[[:Open, :High, :Low, :Close]]) == ta.values
 
-ta = to_TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
+ta = TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
 @test ta.colnames == a_OHLC
 @test Array(df[[:Open, :High, :Low, :Close]]) == ta.values
 
@@ -32,7 +32,7 @@ ta = to_TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
 filename = joinpath(basepath(), "ford_2012.csv")
 df = readtable(filename)
 df[:Date] = Date(df[:Date])
-ta = to_TimeArray(df, colnames=[:Open, :High, :Low, :Close])
+ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close])
 @test ta.colnames == a_OHLC
 @test Array(df[[:Open, :High, :Low, :Close]]) == ta.values
 
@@ -41,6 +41,5 @@ using TimeSeries
 filename = joinpath(basepath(), "ford_2012.csv")
 ta2 = readtimearray(filename)
 ta2 = ta2["Open", "High", "Low", "Close"]
-df2 = to_DataFrame(ta2)
+df2 = DataFrame(ta2)
 @test names(df2) == [:Date, :Open, :High, :Low, :Close]
-println(df2)
