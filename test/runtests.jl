@@ -1,5 +1,5 @@
-using TimeSeriesReader
-#using TimeSeriesReader: basepath
+using TimeSeriesIO
+#using TimeSeriesIO: basepath
 
 using Base.Test
 

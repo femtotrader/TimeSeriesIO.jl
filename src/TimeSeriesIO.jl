@@ -1,4 +1,4 @@
-module TimeSeriesReader
+module TimeSeriesIO
 
 # package code goes here
 export TimeArray, DataFrame, basepath
