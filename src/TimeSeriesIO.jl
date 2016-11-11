@@ -9,7 +9,7 @@ include("path.jl")
 
 import TimeSeries.TimeArray
 
-function TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
+function TimeArray(df::DataFrame; colnames=Symbol[], timestamp=:Date)
     if length(colnames) == 0
         colnames = names(df)
         colnames = filter(s->s!=timestamp, colnames)
@@ -21,10 +21,12 @@ function TimeArray(df::DataFrame; timestamp=:Date, colnames=Symbol[])
     ta
 end
 
-function DataFrame(ta::TimeArray)
+function DataFrame(ta::TimeArray; colnames=Symbol[], timestamp=:Date)
     df = DataFrame(hcat(ta.timestamp, ta.values))
-    colnames = [Symbol(s) for s in ta.colnames]
-    colnames = vcat(:Date, colnames)
+    if length(colnames) == 0
+        colnames = [Symbol(s) for s in ta.colnames]
+    end
+    colnames = vcat(timestamp, colnames)
     names!(df, colnames)
     df
 end

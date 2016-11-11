@@ -8,6 +8,40 @@
 
 [![codecov.io](http://codecov.io/github/femtotrader/TimeSeriesIO.jl/coverage.svg?branch=master)](http://codecov.io/github/femtotrader/TimeSeriesIO.jl?branch=master)
 
-- Convert DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl)) to TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl))
+A Julia library to convert DataFrame to TimeSeries (and otherwise).
 
-- Convert TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl)) tp DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl))
+## Install
+
+```julia
+julia> Pkg.add("TimeSeriesIO")
+```
+
+## Usage
+
+```julia
+julia> using TimeSeriesIO
+```
+
+### Convert DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl)) to TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl))
+
+```julia
+julia> ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close], timestamp=:Date)
+```
+
+Converts a `DataFrame` named `df` to a `TimeArray` named `ta` keeping only columns defined using `colnames` and using colums defined using `timestamp` as timeseries index.
+
+#### Optional parameters
+- `colnames`: If it's not given, all columns will be kept.
+- `timestamp`: If it's not given, column named `:Date` will be used as timeseries timestamp index.
+
+### Convert TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl)) tp DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl))
+
+```julia
+df = DataFrame(ta, colnames=[:Open, :High, :Low, :Close], timestamp=:Date)
+```
+
+Converts a `TimeArray` named `ta` to a `DataFrame` named `df` keeping only columns defined using `colnames`.
+
+#### Optional parameters
+- `colnames`: If it's not given, all columns will be kept.
+- `timestamp`: If it's not given, column named `:Date` will be created.
