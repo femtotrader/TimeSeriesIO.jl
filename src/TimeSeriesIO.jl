@@ -10,7 +10,9 @@ include("path.jl")
 import TimeSeries.TimeArray
 
 function TimeArray(df::DataFrame; colnames=Symbol[], timestamp=:Date)
-    if length(colnames) == 0
+    if length(colnames) != 0
+        df = df[vcat(timestamp, colnames)]
+    else
         colnames = names(df)
         colnames = filter(s->s!=timestamp, colnames)
     end
