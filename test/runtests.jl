@@ -28,6 +28,10 @@ ta = TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
 @test ta.colnames == a_OHLC
 @test Array(df[[:Open, :High, :Low, :Close]]) == ta.values
 
+## With optional arguments
+names!(df, [:DateTime, :Stock, :Open, :High, :Low, :Close, :Volume])
+ta = TimeArray(df[[:DateTime, :Open, :High, :Low, :Close]], timestamp=:DateTime)
+@test ta.colnames == ["Open", "High", "Low", "Close"]
 
 filename = joinpath(basepath(), "ford_2012.csv")
 df = readtable(filename)
@@ -43,3 +47,7 @@ ta2 = readtimearray(filename)
 ta2 = ta2["Open", "High", "Low", "Close"]
 df2 = DataFrame(ta2)
 @test names(df2) == [:Date, :Open, :High, :Low, :Close]
+
+## With optional arguments
+df2 = DataFrame(ta2, timestamp=:DateTime, colnames=[:Open, :Close])
+@test names(df2) == [:DateTime, :Open, :Close]
