@@ -34,7 +34,7 @@ Converts a `DataFrame` named `df` to a `TimeArray` named `ta` keeping only colum
 - `colnames`: If it's not given, all columns will be kept.
 - `timestamp`: If it's not given, column named `:Date` will be used as timeseries timestamp index.
 
-### Convert TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl)) tp DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl))
+### Convert TimeArray (from [TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl)) to DataFrame (from [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl))
 
 ```julia
 df = DataFrame(ta, colnames=[:Open, :High, :Low, :Close], timestamp=:Date)
