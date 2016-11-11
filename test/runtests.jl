@@ -30,7 +30,7 @@ ta = TimeArray(df[[:Date, :Open, :High, :Low, :Close]])
 
 ## With optional arguments
 names!(df, [:DateTime, :Stock, :Open, :High, :Low, :Close, :Volume])
-ta = TimeArray(df[[:DateTime, :Open, :High, :Low, :Close]], timestamp=:DateTime)
+ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close], timestamp=:DateTime)
 @test ta.colnames == ["Open", "High", "Low", "Close"]
 
 filename = joinpath(basepath(), "ford_2012.csv")
