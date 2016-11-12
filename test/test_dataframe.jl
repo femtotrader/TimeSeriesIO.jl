@@ -32,7 +32,7 @@ names!(df, [:DateTime, :Stock, :Open, :High, :Low, :Close, :Volume])
 ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close], timestamp=:DateTime)
 @test ta.colnames == ["Open", "High", "Low", "Close"]
 
-filename = joinpath(basepath(), "ford_2012.csv")
+filename = joinpath(dirname(@__FILE__), "ford_2012.csv")
 df = readtable(filename)
 df[:Date] = Date(df[:Date])
 ta = TimeArray(df, colnames=[:Open, :High, :Low, :Close])

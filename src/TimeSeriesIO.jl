@@ -1,11 +1,10 @@
 module TimeSeriesIO
 
 # package code goes here
-export TimeArray, DataFrame, basepath
+export TimeArray, DataFrame
 
 using DataFrames
 using TimeSeries
-include("path.jl")
 
 import TimeSeries.TimeArray
 

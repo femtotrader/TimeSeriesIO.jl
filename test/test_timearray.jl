@@ -4,7 +4,7 @@ using Base.Test
 
 # Test convert TimeArray to DataFrame
 using TimeSeries
-filename = joinpath(basepath(), "ford_2012.csv")
+filename = joinpath(dirname(@__FILE__), "ford_2012.csv")
 ta2 = readtimearray(filename)
 ta2 = ta2["Open", "High", "Low", "Close"]
 df2 = DataFrame(ta2)
