@@ -1,5 +1,7 @@
 # TimeSeriesIO
 
+[![Package Evaluator](http://pkg.julialang.org/badges/TimeSeriesIO_0.5.svg)](http://pkg.julialang.org/?pkg=TimeSeriesIO)
+
 [![Build Status](https://travis-ci.org/femtotrader/TimeSeriesIO.jl.svg?branch=master)](https://travis-ci.org/femtotrader/TimeSeriesIO.jl)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/github/femtotrader/timeseriesio.jl?svg=true&branch=master)](https://ci.appveyor.com/project/femtotrader/timeseriesio-jl/branch/master)
