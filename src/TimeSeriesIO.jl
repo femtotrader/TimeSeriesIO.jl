@@ -8,6 +8,9 @@ using TimeSeries
 
 import TimeSeries.TimeArray
 
+include("nd_circular_buffer.jl")
+include("stream_timearray.jl")
+
 function TimeArray(df::DataFrame; colnames=Symbol[], timestamp=:Date)
     if length(colnames) != 0
         df = df[vcat(timestamp, colnames)]
