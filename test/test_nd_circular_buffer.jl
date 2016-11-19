@@ -51,10 +51,15 @@ push!(cb, [30, 31, 32, 33])
 @test size(cb) == (3, 4)
 push!(cb, [40, 41, 42, 43])
 push!(cb, [50, 51, 52, 53])
-@test cb[1] == [30,31,32,33]
-@test cb[2] == [40,41,42,43]
-@test cb[3] == [50,51,52,53]
+@test cb[end-2] == [30,31,32,33]
+@test cb[end-1] == [40,41,42,43]
+@test cb[end] == [50,51,52,53]
 println(cb.buffer)
+
+#ToFix
+cb[end, 2] = 99
+@test cb[end] == [50,99,52,53]
+
 #println(cb.colons)
 #println(cb.buffer[1, :])
 #println(cb[1])

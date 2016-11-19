@@ -32,8 +32,13 @@ function Base.getindex(cb::NDCircularBuffer, i::Int, args...; kwargs...)
     cb.buffer[_buffer_index(cb, i), cb.colons...]
 end
 
-function Base.setindex!(cb::NDCircularBuffer, data, i::Int)
-    cb.buffer[_buffer_index(cb, i), cb.colons...] = data
+function Base.setindex!(cb::NDCircularBuffer, data, i::Int, args...)
+    if length(args) == 0
+        colons = cb.colons
+    else
+        colons = cb.colons[1:length(args)]        
+    end
+    cb.buffer[_buffer_index(cb, i), args..., colons...] = data
     cb
 end
 
