@@ -8,7 +8,7 @@ type NDCircularBuffer{T, N} <: AbstractArray{T, N}
     used::Int
     colons::Vector{Colon}
 
-    function NDCircularBuffer(capacity::Int, others_dims...)
+    function NDCircularBuffer{T,N}(capacity::Int, others_dims...) where {T,N}
         a = Array{T, N}(capacity, others_dims...)
         colons = Vector{Colon}(N - 1)
         new(capacity, 1, a, 0, colons)
