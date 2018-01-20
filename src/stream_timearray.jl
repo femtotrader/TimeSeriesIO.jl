@@ -4,7 +4,7 @@ immutable StreamTimeArray{D<:TimeType, T} <: AbstractTimeSeries
     values::NDCircularBuffer
     colnames::Vector{String}
 
-    function StreamTimeArray(capacity::Integer, colnames::Vector{String})
+    function StreamTimeArray{D,T}(capacity::Integer, colnames::Vector{String}) where {D,T}
         new(NDCircularBuffer(D, capacity),
             NDCircularBuffer(T, capacity, length(colnames)),
             colnames)
