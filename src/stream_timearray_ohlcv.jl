@@ -8,7 +8,7 @@ immutable StreamTimeArrayOHLCV{D<:Dates.TimeType, Tprice, Tvol} <: AbstractTimeS
 
     timeframe::TimeFrame
 
-    function StreamTimeArrayOHLCV(capacity::Integer, tf::TimeFrame)
+    function StreamTimeArrayOHLCV{D,Tprice,Tvol}(capacity::Integer, tf::TimeFrame) where {D,Tprice,Tvol}
         new(NDCircularBuffer(D, capacity),
             NDCircularBuffer(Tprice, capacity, 4),
             NDCircularBuffer(Tvol, capacity), tf)
