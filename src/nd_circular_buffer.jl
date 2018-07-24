@@ -1,21 +1,21 @@
 """
 New items are pushed to the back of the list, overwriting values in a circular fashion.
 """
-type NDCircularBuffer{T, N} <: AbstractArray{T, N}
+mutable struct NDCircularBuffer{T, N} <: AbstractArray{T, N}
     capacity::Int
     first::Int
     buffer::Array{T, N}
     used::Int
     colons::Vector{Colon}
 
-    function NDCircularBuffer(capacity::Int, others_dims...)
+    function NDCircularBuffer{T, N}(capacity::Int, others_dims...) where {T, N}
         a = Array{T, N}(capacity, others_dims...)
         colons = Vector{Colon}(N - 1)
         new(capacity, 1, a, 0, colons)
     end
 end
 
-function NDCircularBuffer(T, capacity::Int, others_dims...)
+function NDCircularBuffer{T}(capacity::Int, others_dims...) where {T}
     N = length(others_dims) + 1
     NDCircularBuffer{T,N}(capacity::Int, others_dims...)
 end

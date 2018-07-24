@@ -1,12 +1,12 @@
-immutable StreamTimeArray{D<:TimeType, T} <: AbstractTimeSeries
+struct StreamTimeArray{D<:TimeType, T} <: AbstractTimeSeries where {D,T}
 
-    timestamp::NDCircularBuffer
-    values::NDCircularBuffer
+    timestamp::NDCircularBuffer{D}
+    values::NDCircularBuffer{T}
     colnames::Vector{String}
 
-    function StreamTimeArray(capacity::Integer, colnames::Vector{String})
-        new(NDCircularBuffer(D, capacity),
-            NDCircularBuffer(T, capacity, length(colnames)),
+    function StreamTimeArray{D,T}(capacity::Integer, colnames::Vector{String}) where {D,T}
+        new(NDCircularBuffer{D}(capacity),
+            NDCircularBuffer{T}(capacity, length(colnames)),
             colnames)
     end
 

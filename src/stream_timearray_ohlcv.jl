@@ -1,17 +1,18 @@
 using TimeFrames: TimeFrame, apply
 
-immutable StreamTimeArrayOHLCV{D<:Dates.TimeType, Tprice, Tvol} <: AbstractTimeSeries
+struct StreamTimeArrayOHLCV{D<:Dates.TimeType, Tprice, Tvol} <: AbstractTimeSeries where {D,Tprice,Tvol}
 
-    timestamp::NDCircularBuffer
-    price::NDCircularBuffer
-    volume::NDCircularBuffer
+    timestamp::NDCircularBuffer{D}
+    price::NDCircularBuffer{Tprice}
+    volume::NDCircularBuffer{Tvol}
 
     timeframe::TimeFrame
 
-    function StreamTimeArrayOHLCV(capacity::Integer, tf::TimeFrame)
-        new(NDCircularBuffer(D, capacity),
-            NDCircularBuffer(Tprice, capacity, 4),
-            NDCircularBuffer(Tvol, capacity), tf)
+    function StreamTimeArrayOHLCV{D,Tprice,Tvol}(capacity::Integer, tf::TimeFrame) where {D,Tprice,Tvol}
+        new(NDCircularBuffer{D}(capacity),
+            NDCircularBuffer{Tprice}(capacity, 4),
+            NDCircularBuffer{Tvol}(capacity),
+            tf)
     end
 
 end
