@@ -1,13 +1,14 @@
-struct StreamTimeArray{D<:TimeType, T} <: AbstractTimeSeries where {D,T}
+struct StreamTimeArray{D<:TimeType, T}
 
-    timestamp::NDCircularBuffer{D}
-    values::NDCircularBuffer{T}
-    colnames::Vector{String}
+    capacity::Integer
+    
+    timestamp::CircularBuffer{D}
+    values::CircularBuffer{T}
 
-    function StreamTimeArray{D,T}(capacity::Integer, colnames::Vector{String}) where {D,T}
-        new(NDCircularBuffer{D}(capacity),
-            NDCircularBuffer{T}(capacity, length(colnames)),
-            colnames)
+    function StreamTimeArray{D,T}(capacity::Integer) where {D,T}
+        new(capacity,
+            CircularBuffer{D}(capacity),
+            CircularBuffer{T}(capacity))
     end
 
 end
@@ -26,14 +27,10 @@ function Base.push!(ta::StreamTimeArray, timestamp, data)
     push!(ta.values, data)
 end
 
+Base.length(ta::StreamTimeArray) = length(ta.timestamp)
+Base.size(ta::StreamTimeArray) = (length(ta),)
+Base.convert(::Type{Array}, ta::StreamTimeArray{T}) where {T} = T[x for x in cb]
+Base.isempty(ta::StreamTimeArray) = isempty(ta.timestamp)
 
-function Base.push!(ta::StreamTimeArray, timestamp; kw_data...)
-    _assert_datetime_increasing(ta, timestamp)
-    push!(ta.timestamp, timestamp)
-    d_data = Dict(kw_data)
-    data = Vector{eltype(ta.values)}()
-    for colname in ta.colnames
-        push!(data, d_data[Symbol(colname)])
-    end
-    push!(ta.values, data)
-end
+capacity(ta::StreamTimeArray) = ta.capacity
+isfull(ta::StreamTimeArray) = length(ta) == ta.capacity
