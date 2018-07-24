@@ -3,7 +3,7 @@ using TimeSeriesIO: NDCircularBuffer, capacity, isfull, getindex
 using Base.Test
 
 
-@testset "TimeArray to DataFrame" begin
+@testset "NDCircularBuffer" begin
     #cb = CircularBuffer{Int}(5)
     cb = NDCircularBuffer(Int, 5)
     @test length(cb) == 0
